@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".config_dtn">
+
+    <TextView
+        android:id="@+id/cde1"
+        android:layout_width="415dp"
+        android:layout_height="56dp"
+        android:background="@color/yellow"
+        android:gravity="center"
+        android:text="@string/destination_set"
+        android:textColor="#000000"
+        android:textSize="30sp"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp" />
+
+    <SearchView
+        android:layout_width="367dp"
+        android:layout_height="51dp"
+        android:background="@drawable/edge_line"
+        tools:layout_editor_absoluteX="28dp"
+        tools:layout_editor_absoluteY="96dp" />
+
+    <Button
+        android:id="@+id/btn_complete"
+        android:layout_width="81dp"
+        android:layout_height="39dp"
+        android:background="@drawable/configuration_button"
+        android:text="@string/done"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        tools:layout_editor_absoluteX="325dp"
+        tools:layout_editor_absoluteY="8dp" />
+
+    <RelativeLayout
+        android:layout_width="411dp"
+        android:layout_height="195dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/cde3"
+            android:layout_width="305dp"
+            android:layout_height="55dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="0dp"
+            android:layout_marginBottom="14dp"
+            android:background="@drawable/home_gray_square"
+            android:gravity="center"
+            android:text="즐겨찾기 목록"
+            android:textColor="#000000"
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/cde4"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_below="@id/cde3"
+            android:layout_marginTop="0dp"
+            android:background="@drawable/list_square"
+            android:gravity="center"
+            android:text="충청북도 청주시 흥덕구 ..."
+            android:textColor="#000000"
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/cde5"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_below="@id/cde4"
+            android:layout_marginTop="0dp"
+            android:background="@drawable/list_square"
+            android:gravity="center"
+            android:text="충청북도 청주시 서원구 ..."
+            android:textColor="#000000"
+            android:textSize="25sp" />
+
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

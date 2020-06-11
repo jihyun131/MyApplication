@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".notice1"
+    tools:ignore="ExtraText"
+    android:background="#696969"
+    >
+
+    <item
+        android:id="@+id/action_setting"
+        android:title="설정"
+        app:showAsAction="never"
+        tools:ignore="MissingConstraints" />
+
+    <Button
+        android:fontFamily="@font/font_family"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="도착"
+        android:id="@+id/button1_arrival"
+        android:background="@drawable/button_arrival"
+        android:textSize="25dp"
+        android:layout_marginTop="10dp"
+        tools:ignore="MissingConstraints"></Button>
+    <Button
+
+        android:layout_width="300dp"
+        android:layout_height="100dp"
+        android:text="평소와 다른 경로를 이용합니다"
+        android:layout_centerInParent="true"
+        android:background="@drawable/button_notice"
+        android:textSize="17dp"/>
+
+
+
+
+    <Button
+
+        android:id="@+id/button"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="520dp"
+        android:background="@drawable/button_location"
+        android:textSize="17dp"
+        android:text="위치 저장 중입니다"></Button>
+
+
+</RelativeLayout>

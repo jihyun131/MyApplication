@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.myapplication">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".map_page"></activity>
+        <activity android:name=".bookmark_dtn" />
+        <activity android:name=".bookmark_num" />
+        <activity android:name=".sos" />
+        <activity android:name=".notice2" />
+        <activity android:name=".notice1" />
+        <activity android:name=".setting" />
+        <activity android:name=".arriving_complete" />
+        <activity android:name=".arriving_miss" />
+        <activity android:name=".start" />
+        <activity android:name=".config_num" />
+        <activity android:name=".config_dtn" />
+        <activity android:name=".signup" />
+        <activity android:name=".home" />
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

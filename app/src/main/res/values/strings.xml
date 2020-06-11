@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">PocketPolice</string>
+    <string name="pocket_police">Pocket Police</string>
+    <string name="todo">TODO</string>
+    <string name="user">User님</string>
+    <string name="destination_set">목적지 설정</string>
+    <string name="phonenum_set">사전 연락처 지정</string>
+    <string name="start">START</string>
+    <string name="home_text">안전한 귀갓길을 함께하겠습니다</string>
+    <string name="destination_bookmark">목적지 즐겨찾기</string>
+    <string name="location_permission">위치 정보 허용</string>
+    <string name="phonenum_bookmark">사전 연락처 즐겨찾기</string>
+    <string name="done">완료</string>
+    <string name="pnlist">연락처 목록</string>
+    <string name="kim">김아무개 010-1234-5678</string>
+    <string name="park">박아무개 010-5678-1234</string>
+    <string name="cho">조아무개 010-1212-3434</string>
+    <string name="han">한아무개 010-5656-7878</string>
+    <string name="bmlist">즐겨찾기 목록</string>
+    <string name="hint_id">아이디</string>
+    <string name="hint_password">비밀번호</string>
+    <string name="hint_passwordck">비빌번호 확인</string>
+    <string name="hint_name">이름</string>
+    <string name="btn_login">로그인</string>
+    <string name="btn_register">회원가입</string>
+    <string name="button">Button</string>
+</resources>

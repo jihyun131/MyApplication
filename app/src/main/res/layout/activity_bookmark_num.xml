@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".bookmark_num">
+
+    <TextView
+        android:id="@+id/nbm1"
+        android:layout_width="415dp"
+        android:layout_height="56dp"
+        android:background="@color/yellow"
+        android:gravity="center_vertical"
+        android:text="        사전연락처 즐겨찾기"
+        android:textColor="#000000"
+        android:textSize="30sp"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp" />
+
+
+    <Button
+        android:id="@+id/btn_complete"
+        android:layout_width="81dp"
+        android:layout_height="39dp"
+        android:background="@drawable/configuration_button"
+        android:text="@string/done"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        tools:layout_editor_absoluteX="325dp"
+        tools:layout_editor_absoluteY="8dp" />
+
+    <RelativeLayout
+        android:layout_width="412dp"
+        android:layout_height="517dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/nbm3"
+            android:layout_width="305dp"
+            android:layout_height="55dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="0dp"
+            android:layout_marginBottom="14dp"
+            android:background="@drawable/home_gray_square"
+            android:gravity="center"
+            android:text="즐겨찾기 목록"
+            android:textColor="#000000"
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/nbm4"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_below="@id/nbm3"
+
+            android:layout_marginTop="0dp"
+            android:background="@drawable/list_square"
+            android:gravity="center"
+            android:text="@string/kim"
+            android:textColor="#000000"
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/nbm5"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_below="@id/nbm4"
+
+            android:layout_marginTop="0dp"
+            android:background="@drawable/list_square"
+            android:gravity="center"
+            android:text="@string/han"
+            android:textColor="#000000"
+            android:textSize="25sp" />
+        <TextView
+            android:id="@+id/nbm6"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_below="@id/nbm5"
+
+            android:layout_marginTop="0dp"
+            android:background="@drawable/list_square"
+            android:gravity="center"
+            android:text="+ 즐겨찾기 추가"
+            android:textColor="#000000"
+            android:textSize="25sp" />
+
+
+    </RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

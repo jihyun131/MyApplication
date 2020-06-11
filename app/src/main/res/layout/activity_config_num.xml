@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".config_num">
+
+    <TextView
+        android:id="@+id/cpn1"
+        android:layout_width="415dp"
+        android:layout_height="56dp"
+        android:background="@color/yellow"
+        android:gravity="center"
+        android:text="@string/phonenum_set"
+        android:textColor="#000000"
+        android:textSize="30sp"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp" />
+
+    <Button
+        android:id="@+id/btn_complete"
+        android:layout_width="81dp"
+        android:layout_height="39dp"
+        android:background="@drawable/configuration_button"
+        android:text="@string/done"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        tools:layout_editor_absoluteX="325dp"
+        tools:layout_editor_absoluteY="8dp" />
+
+    <LinearLayout
+        android:layout_width="409dp"
+        android:layout_height="349dp"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="57dp">
+
+        <TextView
+            android:id="@+id/cpn3"
+            android:layout_width="305dp"
+            android:layout_height="55dp"
+            android:layout_marginHorizontal="55dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/home_gray_square"
+            android:gravity="center"
+            android:text="@string/pnlist"
+            android:textColor="#000000"
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/cpn4"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/list_square"
+            android:gravity="center"
+            android:text="@string/kim"
+            android:textColor="#000000"
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/cpn5"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginTop="0dp"
+            android:background="@drawable/list_square"
+            android:gravity="center"
+            android:text="@string/park"
+            android:textColor="#000000"
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/cpn6"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginTop="0dp"
+            android:background="@drawable/list_square"
+            android:gravity="center"
+            android:text="@string/cho"
+            android:textColor="#000000"
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/cpn7"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginTop="0dp"
+            android:background="@drawable/list_square"
+            android:gravity="center"
+            android:text="@string/han"
+            android:textColor="#000000"
+            android:textSize="25sp" />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="411dp"
+        android:layout_height="195dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/cpn8"
+            android:layout_width="305dp"
+            android:layout_height="55dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="0dp"
+            android:layout_marginBottom="14dp"
+            android:background="@drawable/home_gray_square"
+            android:gravity="center"
+            android:text="@string/bmlist"
+            android:textColor="#000000"
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/cpn9"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_below="@id/cpn8"
+            android:layout_marginTop="0dp"
+            android:background="@drawable/list_square"
+            android:gravity="center"
+            android:text="@string/kim"
+            android:textColor="#000000"
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/cpn10"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_below="@id/cpn9"
+            android:layout_marginTop="0dp"
+            android:background="@drawable/list_square"
+            android:gravity="center"
+            android:text="@string/han"
+            android:textColor="#000000"
+            android:textSize="25sp" />
+
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
