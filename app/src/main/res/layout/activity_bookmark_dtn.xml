@@ -8,33 +8,41 @@
 
     <TextView
         android:id="@+id/dbm1"
-        android:layout_width="415dp"
+        android:layout_width="0dp"
         android:layout_height="56dp"
         android:background="@color/yellow"
         android:gravity="center"
         android:text="목적지 즐겨찾기"
         android:textColor="#000000"
         android:textSize="30sp"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <Button
         android:id="@+id/btn_complete"
         android:layout_width="81dp"
         android:layout_height="39dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="38dp"
         android:background="@drawable/configuration_button"
         android:text="@string/done"
         android:textColor="#FFFFFF"
         android:textSize="20sp"
-        tools:layout_editor_absoluteX="325dp"
-        tools:layout_editor_absoluteY="8dp" />
+        app:layout_constraintBottom_toTopOf="@+id/relativeLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <RelativeLayout
+        android:id="@+id/relativeLayout"
         android:layout_width="412dp"
-        android:layout_height="517dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="1dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_complete">
 
         <TextView
             android:id="@+id/dbm3"
@@ -50,8 +58,9 @@
             android:textColor="#000000"
             android:textSize="25sp" />
 
-        <TextView
-            android:id="@+id/dbm4"
+
+        <Button
+            android:id="@+id/dbm6"
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:layout_below="@id/dbm3"
@@ -59,34 +68,18 @@
             android:layout_marginTop="0dp"
             android:background="@drawable/list_square"
             android:gravity="center"
-            android:text="충청북도 청주시 흥덕구 ..."
-            android:textColor="#000000"
-            android:textSize="25sp" />
-
-        <TextView
-            android:id="@+id/dbm5"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:layout_below="@id/dbm4"
-
-            android:layout_marginTop="0dp"
-            android:background="@drawable/list_square"
-            android:gravity="center"
-            android:text="충청북도 청주시 서원구 ..."
-            android:textColor="#000000"
-            android:textSize="25sp" />
-        <TextView
-            android:id="@+id/dbm6"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:layout_below="@id/dbm5"
-
-            android:layout_marginTop="0dp"
-            android:background="@drawable/list_square"
-            android:gravity="center"
             android:text="+ 즐겨찾기 추가"
             android:textColor="#000000"
             android:textSize="25sp" />
+
+        <ListView
+            android:id="@+id/listdbm"
+            android:layout_width="match_parent"
+            android:layout_height="392dp"
+            android:layout_below="@+id/dbm6"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="0dp" />
 
 
     </RelativeLayout>

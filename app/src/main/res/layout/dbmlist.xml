@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.myapplication.dbmupdate">
+
+    <TextView
+        android:id="@+id/dbmlist1"
+        android:layout_width="412dp"
+        android:layout_height="60dp"
+        android:background="@color/yellow"
+        android:gravity="center"
+        android:text="목적지 즐겨찾기 추가"
+        android:textColor="#000000"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+
+    <TextView
+        android:id="@+id/pl_desdata"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="58dp"
+        android:layout_marginTop="267dp"
+        android:text="주소"
+        android:textColor="@color/colorPrimary"
+        android:textSize="25dp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/newdesname"
+        android:layout_width="198dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="198dp"
+        android:layout_marginEnd="53dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        />
+
+    <TextView
+        android:id="@+id/plus_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="203dp"
+        android:text="이름지정"
+        android:textColor="@color/colorPrimary"
+        android:textSize="25dp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/desdata_up"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="107dp"
+        android:layout_marginBottom="140dp"
+        android:background="@drawable/roundbtn"
+        android:text="추가하기"
+        android:textColor="#FFFFFF"
+        android:textSize="25dp"/>
+
+    <Button
+        android:id="@+id/find_address"
+        android:layout_width="120dp"
+        android:layout_height="50dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="237dp"
+        android:layout_marginTop="197dp"
+        android:layout_marginEnd="197dp"
+        android:layout_marginBottom="294dp"
+        android:background="@drawable/roundbtn"
+        android:text="주소찾기"
+        android:textColor="#FFFFFF"
+        android:textSize="20dp" />
+
+    <WebView
+
+        android:id="@+id/daum_webview"
+
+        android:layout_width="match_parent"
+
+        android:layout_height="0dp"
+
+        android:layout_weight="4" />
+
+
+    <TextView
+
+        android:id="@+id/daum_result"
+
+        android:layout_width="match_parent"
+
+        android:layout_height="0dp"
+
+        android:layout_weight="1"
+
+        android:gravity="center"
+
+        android:text="Result" />
+
+
+</RelativeLayout>
