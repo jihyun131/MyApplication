@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "329620828310",
+    "firebase_url": "https://pocketpolice-74e0c.firebaseio.com",
+    "project_id": "pocketpolice-74e0c",
+    "storage_bucket": "pocketpolice-74e0c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:329620828310:android:30c7e2c1333a5b3a69d2b7",
+        "android_client_info": {
+          "package_name": "com.example.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "329620828310-6otjh8ghvmphvtekuuucf47eknhp9dd0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCm8GQ9_bK5ACMrIYiTZH1DrwIpFJescc8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "329620828310-6otjh8ghvmphvtekuuucf47eknhp9dd0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
