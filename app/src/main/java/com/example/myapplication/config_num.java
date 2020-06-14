@@ -9,10 +9,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import com.example.myapplication.firebase.phonenumSaver;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class config_num extends AppCompatActivity {
     String sosname;
     String sosnum;
+
+    FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    final String uid = mAuth.getCurrentUser().getUid();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +57,7 @@ public class config_num extends AppCompatActivity {
     }
 
     public void savenum (){
-        phonenumSaver ppp = new phonenumSaver("dd");
+        phonenumSaver ppp = new phonenumSaver(uid);
         ppp.savePhonenum(sosname, sosnum);
     }
 }
