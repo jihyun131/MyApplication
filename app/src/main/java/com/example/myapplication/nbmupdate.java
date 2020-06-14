@@ -2,6 +2,7 @@ package com.example.myapplication;
 
 
 import com.example.myapplication.firebase.numbookmark;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -15,11 +16,16 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class nbmupdate extends AppCompatActivity {
+    String uid;
     String snbm;
     String snbm_info;
     Button numdata_up;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        uid = mAuth.getCurrentUser().getUid();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.nbmlist);
         ActionBar ab = getSupportActionBar();
@@ -42,8 +48,9 @@ public class nbmupdate extends AppCompatActivity {
             }
         });
     }
+
     public void savendm (){
-        numbookmark sss = new numbookmark("sl");
+        numbookmark sss = new numbookmark(uid);
         sss.savenbm(snbm_info,snbm);
     }
 }
