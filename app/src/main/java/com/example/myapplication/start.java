@@ -27,9 +27,9 @@ import android.widget.Toast;
 import java.security.cert.TrustAnchor;
 
 public class start extends AppCompatActivity {
-    String input_address;   //사용자가 입력한 주소
-    String input_phonenum;   //폰번호
-    String input_numname;   //폰번호 이름
+    //String input_address;   //사용자가 입력한 주소
+    //String input_phonenum;   //폰번호
+    //String input_numname;   //폰번호 이름
     String[] permission_list = {
             Manifest.permission.ACCESS_COARSE_LOCATION,
             Manifest.permission.ACCESS_FINE_LOCATION
@@ -50,9 +50,9 @@ public class start extends AppCompatActivity {
 
 
         //사용자가 입력한 주소, 번호, 이름 다른 액티비티에서 받아오기
-        input_address = getIntent().getStringExtra("input_address");
-        input_phonenum = getIntent().getStringExtra("input_phonenum");
-        input_numname = getIntent().getStringExtra("input_numname");
+        //input_address = getIntent().getStringExtra("input_address");
+        //input_phonenum = getIntent().getStringExtra("input_phonenum");
+        //input_numname = getIntent().getStringExtra("input_numname");
 
 
         checkPermission();
