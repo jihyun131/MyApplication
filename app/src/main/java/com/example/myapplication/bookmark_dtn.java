@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -29,9 +30,12 @@ import java.util.List;
 
 public class bookmark_dtn extends AppCompatActivity {
     String uid;
+    String dbmdata2;
     private FirebaseAuth firebaseAuth;
     private FirebaseDatabase mDatabase;
     private DatabaseReference mReference;
+    private DatabaseReference mRef;
+
     private ChildEventListener mChild;
     private ListView listView;
     private ArrayAdapter<String> adapter;
@@ -54,25 +58,35 @@ public class bookmark_dtn extends AppCompatActivity {
         listView.setAdapter(adapter);
 
         mReference = mDatabase.getReference("DesBookmark").child(uid);
+        mRef = mDatabase.getReference();
         mReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot){
                 adapter.clear();
 
                 for (DataSnapshot dbmData : dataSnapshot.getChildren()){
-                    String dbmdata2 = dbmData.getValue().toString();
+                    dbmdata2 = dbmData.getValue().toString();
                     Array.add(dbmdata2);
                     adapter.add(dbmdata2);
                 }
                 adapter.notifyDataSetChanged();
                 listView.setSelection(adapter.getCount()-1);
+
+                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        //어디로 보낼지 정하기 현재:home
+                        Intent go = new Intent(getApplicationContext(), home.class);
+                        //go.putExtra("bmdes", Array.get(position).);
+                    }
+                });
             }
+
             @Override
             public void onCancelled(DatabaseError databaseError){
 
             }
         });
-
 
         ActionBar ab = getSupportActionBar() ;
         ab.setIcon(R.drawable.pocketpolice_icon) ;
@@ -103,7 +117,7 @@ public class bookmark_dtn extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser user = firebaseAuth.getCurrentUser();
         String uid = user.getUid();
-*/
+        */
         mDatabase =FirebaseDatabase.getInstance();
         mReference=mDatabase.getReference("DesBookmark").child(uid);
         //mReference.child("log").setValue("check");
