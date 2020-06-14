@@ -42,8 +42,10 @@ public class config_num extends AppCompatActivity {
             public void onClick(View view) {
                 sosname = nametxt.getText().toString();
                 sosnum = numtxt.getText().toString();
-                savenum();
+                //savenum();
                 Intent intent1=new Intent(getApplicationContext(), home.class);
+                intent1.putExtra("W_phonename",sosname);
+                intent1.putExtra("W_numname",sosnum);
                 startActivity(intent1);
             }
         });
@@ -56,8 +58,8 @@ public class config_num extends AppCompatActivity {
         });
     }
 
-    public void savenum (){
-        phonenumSaver ppp = new phonenumSaver(uid);
-        ppp.savePhonenum(sosname, sosnum);
-    }
+    //public void savenum (){
+    //    phonenumSaver ppp = new phonenumSaver(uid);
+    //    ppp.savePhonenum(sosname, sosnum);
+    //}
 }
