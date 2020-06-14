@@ -1,5 +1,7 @@
 package com.example.myapplication;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,6 +14,7 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import com.example.myapplication.firebase.desbookmark;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -21,47 +24,49 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class bookmark_dtn extends AppCompatActivity {
-    private ListView listView2;
-    List fileList1 = new ArrayList<>();
-    ArrayAdapter adapter2;
+    private FirebaseDatabase mDatabase;
+    private DatabaseReference mReference;
+    private ChildEventListener mChild;
+    private ListView listView;
+    private ArrayAdapter<String> adapter;
+    List<Object> Array = new ArrayList<Object>();
+
     Button dbm6;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bookmark_dtn);
 
-        listView2 = (ListView)findViewById(R.id.listdbm);
+        listView =(ListView) findViewById(R.id.listdbm);
 
-        adapter2 = new ArrayAdapter<String>(this, R.layout.dbmsave, fileList1);
-        listView2.setAdapter(adapter2);
+        initDatabase();
 
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference databaseRef = database.getReference("DesBookmark");
-        DatabaseReference dbmRef = database.getReference("userid");
-        dbmRef.addValueEventListener(new ValueEventListener() {
+        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line,new ArrayList<String>());
+        listView.setAdapter(adapter);
+
+        mReference = mDatabase.getReference("DesBookmark").child("dd");
+        mReference.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                adapter2.clear();
-                // 클래스 모델이 필요?
-                for (DataSnapshot fileSnapshot : dataSnapshot.getChildren()) {
-                    //MyFiles filename = (MyFiles) fileSnapshot.getValue(MyFiles.class);
-                    //하위키들의 value를 어떻게 가져오느냐???
-                    String str = fileSnapshot.child("sdbm_info").getValue().toString();
-                    Log.i("TAG: value is ", str);
-                    fileList1.add(str);
-                    adapter2.add(str);
+            public void onDataChange(DataSnapshot dataSnapshot){
+                adapter.clear();
+
+                for (DataSnapshot dbmData : dataSnapshot.getChildren()){
+                    String dbmdata2 = dbmData.getValue().toString();
+                    Array.add(dbmdata2);
+                    adapter.add(dbmdata2);
                 }
-                adapter2.notifyDataSetChanged();
-                listView2.setSelection(adapter2.getCount()-1);
+                adapter.notifyDataSetChanged();
+                listView.setSelection(adapter.getCount()-1);
             }
-
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.w("TAG: ", "Failed to read value", databaseError.toException());
+            public void onCancelled(DatabaseError databaseError){
+
             }
         });
-        setContentView(R.layout.activity_bookmark_dtn);
+
+
         ActionBar ab = getSupportActionBar() ;
         ab.setIcon(R.drawable.pocketpolice_icon) ;
         ab.setDisplayUseLogoEnabled(true) ;
@@ -85,5 +90,42 @@ public class bookmark_dtn extends AppCompatActivity {
                 startActivity(pg1);
             }
         });
+    }
+    private void initDatabase(){
+        mDatabase =FirebaseDatabase.getInstance();
+        mReference=mDatabase.getReference("DesBookmark").child("dd");
+        //mReference.child("log").setValue("check");
+        mChild = new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        };
+        mReference.addChildEventListener(mChild);
+    }
+    @Override
+    protected  void onDestroy(){
+        super.onDestroy();
+        mReference.removeEventListener(mChild);
     }
 }

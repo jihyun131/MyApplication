@@ -73,12 +73,16 @@
 
         <ListView
             android:id="@+id/listnbm"
+            android:background="@drawable/list_square"
             android:layout_width="match_parent"
             android:layout_height="392dp"
-            android:layout_below="@+id/dbm6"
+            android:layout_below="@+id/nbm6"
             android:layout_alignParentBottom="true"
             android:layout_marginTop="2dp"
-            android:layout_marginBottom="-2dp" />
+            android:layout_marginBottom="0dp"
+            android:textSize="25sp"
+            />
+
 
 
     </RelativeLayout>
