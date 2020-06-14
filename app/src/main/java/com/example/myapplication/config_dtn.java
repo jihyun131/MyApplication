@@ -9,9 +9,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import com.example.myapplication.firebase.addressSaver;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class config_dtn extends AppCompatActivity {
     String data;
+
+    //FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    //final String uid = mAuth.getCurrentUser().getUid();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,11 +32,16 @@ public class config_dtn extends AppCompatActivity {
         EditText button2 = (EditText) findViewById(R.id.editTextTextPostalAddress);
         Button button3=(Button)findViewById(R.id.bml);
 
+
+        data = getIntent().getStringExtra("input_address");
+        button2.setText(data);
+
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                saveadd();
+                //saveadd();
                 Intent intent1=new Intent(getApplicationContext(), home.class);
+                intent1.putExtra("W_address",data);
                 startActivity(intent1);
             }
         });
@@ -43,8 +52,7 @@ public class config_dtn extends AppCompatActivity {
                 startActivity(intent2);
             }
         });
-        data = getIntent().getStringExtra("input_address");
-        button2.setText(data);
+
 
         button3.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,8 +66,8 @@ public class config_dtn extends AppCompatActivity {
 
     }
 
-    public void saveadd (){
-        addressSaver sss = new addressSaver("dd");
-        sss.saveAddress(data);
-    }
+    //public void saveadd (){
+    //    addressSaver sss = new addressSaver(uid);
+    //    sss.saveAddress(data);
+    //}
 }

@@ -73,21 +73,16 @@
         android:textColor="#FFFFFF"
         android:textSize="25dp"/>
 
-    <Button
+    <EditText
         android:id="@+id/find_address"
-        android:layout_width="120dp"
-        android:layout_height="50dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_centerInParent="true"
-        android:layout_marginStart="237dp"
-        android:layout_marginTop="197dp"
-        android:layout_marginEnd="197dp"
-        android:layout_marginBottom="294dp"
-        android:background="@drawable/roundbtn"
-        android:text="주소찾기"
-        android:textColor="#FFFFFF"
-        android:textSize="20dp" />
+        android:layout_width="198dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="263dp"
+        android:layout_marginEnd="53dp"
+        android:ems="10"
+        android:inputType="textPersonName" />
 
     <WebView
 

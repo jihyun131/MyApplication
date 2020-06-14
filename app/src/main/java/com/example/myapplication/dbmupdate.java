@@ -34,6 +34,7 @@ public class dbmupdate extends AppCompatActivity {
     Button desdata_up;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        String data1;
 
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         uid = mAuth.getCurrentUser().getUid();
@@ -48,7 +49,7 @@ public class dbmupdate extends AppCompatActivity {
         ab.setDisplayUseLogoEnabled(true);
         ab.setDisplayShowHomeEnabled(true);
 
-        find_address = (Button) findViewById(R.id.find_address);
+        EditText find_address = (EditText) findViewById(R.id.find_address);
         find_address.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -57,6 +58,8 @@ public class dbmupdate extends AppCompatActivity {
             }
         });
         final EditText des_info = (EditText) findViewById(R.id.newdesname);
+        data1 = getIntent().getStringExtra("input_address");
+        find_address.setText(data1);
 
         desdata_up = (Button) findViewById(R.id.desdata_up);
         desdata_up.setOnClickListener(new View.OnClickListener() {

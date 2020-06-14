@@ -49,8 +49,8 @@ public class search_address extends AppCompatActivity {
                 @Override
                 public void run(){
                     String input_Aaa;
-                    input_Aaa= String.format("(%s) %s %s", arg1, arg2, arg3);
-                    daum_result.setText(String.format("(%s) %s %s", arg1, arg2, arg3));
+                    input_Aaa= String.format("%s %s", arg2, arg3);
+                    daum_result.setText(String.format("%s %s", arg2, arg3));
                     Intent intent_ad = new Intent(getApplicationContext(), config_dtn.class);
                     intent_ad.putExtra("input_address", input_Aaa);
                     startActivity(intent_ad);
