@@ -1,8 +1,10 @@
 package com.example.myapplication;
 
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -54,7 +56,80 @@ public class home extends AppCompatActivity {
                 intent3.putExtra("input_address",input_address);
                 intent3.putExtra("input_phonenum",input_phonenum);
                 intent3.putExtra("input_numname",input_numname);
-                startActivity(intent3);
+                /*
+                if(input_address==null){
+                    if(input_phonenum==null){
+                        //둘 다 즐겨찾기에서 선택했는지
+                        if(bm_a==null && bm_pn==null){
+                            new AlertDialog.Builder(home.this)
+                            .setTitle("잠깐!")
+                            .setMessage("목적지와 사전 연락처를 설정해 주세요")
+                            .setNeutralButton("확인", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+
+                                }
+                            })
+                                    .show();
+                        }
+                        else if(bm_a==null){
+                            new AlertDialog.Builder(home.this)
+                                    .setTitle("잠깐!")
+                                    .setMessage("목적지를 설정해 주세요")
+                                    .setNeutralButton("확인", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+
+                                        }
+                                    })
+                                    .show();
+                        }
+                        else{
+                            new AlertDialog.Builder(home.this)
+                                    .setTitle("잠깐!")
+                                    .setMessage("사전 연락처를 설정해 주세요")
+                                    .setNeutralButton("확인", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+
+                                        }
+                                    })
+                                    .show();
+                        }
+                    }
+                    else {
+                        //주소 즐겨찾기에서 선택했는지
+                        if(bm_a==null){
+                            new AlertDialog.Builder(home.this)
+                                    .setTitle("잠깐!")
+                                    .setMessage("목적지를 설정해 주세요")
+                                    .setNeutralButton("확인", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+
+                                        }
+                                    })
+                                    .show();
+                        }
+                        else startActivity(intent3);
+                    }
+                }
+                else{
+                    if(bm_pn==null){
+                        new AlertDialog.Builder(home.this)
+                                .setTitle("잠깐!")
+                                .setMessage("사전 연락처를 설정해 주세요")
+                                .setNeutralButton("확인", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                                    }
+                                })
+                                .show();
+                    }
+                    else startActivity(intent3);
+                } */
+                //startActivity(intent3);
             }
         });
     }
