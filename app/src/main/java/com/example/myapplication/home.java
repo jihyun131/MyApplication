@@ -129,7 +129,7 @@ public class home extends AppCompatActivity {
                     }
                     else startActivity(intent3);
                 } */
-                //startActivity(intent3);
+                startActivity(intent3);
             }
         });
     }
