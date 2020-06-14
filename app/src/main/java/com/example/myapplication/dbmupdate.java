@@ -14,12 +14,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.logging.Handler;
 
 public class dbmupdate extends AppCompatActivity {
+    String uid;
+    private FirebaseAuth firebaseAuth;
     String sdbm_info;
     String sdbm;
     private WebView webView;
@@ -29,6 +34,10 @@ public class dbmupdate extends AppCompatActivity {
     Button desdata_up;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        uid = mAuth.getCurrentUser().getUid();
+
         super.onCreate(savedInstanceState);
         Intent ad = getIntent();
         final String desti = ad.getStringExtra("input_address");
@@ -55,15 +64,15 @@ public class dbmupdate extends AppCompatActivity {
             public void onClick(View view) {
                 sdbm_info = des_info.getText().toString();
                 sdbm = desti;
-                savedbm();
+                svdbm();
                 Intent pg1 = new Intent(getApplicationContext(), bookmark_dtn.class);
                 startActivity(pg1);
 
             }
         });
     }
-    public void savedbm (){
-        desbookmark sss = new desbookmark("dd");
+    public void svdbm (){
+        desbookmark sss = new desbookmark(uid);
         sss.savedbm(sdbm, sdbm_info);
     }
 }

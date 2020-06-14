@@ -92,8 +92,8 @@ public class DaumWebViewActivity extends AppCompatActivity {
 
                 public void run() {
                     String input_add;
-                    input_add= String.format("(%s) %s %s", arg1, arg2, arg3);
-                    daum_result.setText(String.format("(%s) %s %s", arg1, arg2, arg3));
+                    input_add= String.format(" %s %s", arg2, arg3);
+                    daum_result.setText(String.format("%s %s", arg2, arg3));
                     Intent intent_ad = new Intent(getApplicationContext(), dbmupdate.class);
                     intent_ad.putExtra("input_address", input_add);
                     startActivity(intent_ad);
