@@ -56,7 +56,7 @@ public class start extends AppCompatActivity {
         //데이터베이스에서 주소, 전화번호 읽어오기
         DatabaseReference mDatabase;
         mDatabase= FirebaseDatabase.getInstance().getReference();
-        mDatabase.child("Selected").child("주소").addListenerForSingleValueEvent(new ValueEventListener() {
+        mDatabase.child("Selected").child(nowuser).child("주소").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 data_address=dataSnapshot.getValue().toString();
@@ -67,7 +67,7 @@ public class start extends AppCompatActivity {
 
             }
         });
-        mDatabase.child("Selected").child("번호").addListenerForSingleValueEvent(new ValueEventListener() {
+        mDatabase.child("Selected").child(nowuser).child("번호").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 data_num=dataSnapshot.getValue().toString();

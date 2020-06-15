@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -24,10 +25,9 @@ public class home extends AppCompatActivity {
 
     String input_address;
     String input_phonenum;
-    //String input_numname;
-    String bm_des;
-    String bm_num;
-    //Intent intent3;
+
+    FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    final String uid = mAuth.getCurrentUser().getUid();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,31 +42,36 @@ public class home extends AppCompatActivity {
         Button button2=(Button)findViewById(R.id.btn_config_num);
         Button button3=(Button)findViewById(R.id.btn_start);
 
-        DatabaseReference mDatabase;
+        final DatabaseReference mDatabase;
         mDatabase= FirebaseDatabase.getInstance().getReference();
-        mDatabase.child("Selected").child("주소").addListenerForSingleValueEvent(new ValueEventListener() {
+        mDatabase.child("Selected").child(uid).child("주소").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                input_address=dataSnapshot.getValue().toString();
-                Log.i("TEST",input_address);
+                if(dataSnapshot.getValue()!=null) {
+                    input_address = dataSnapshot.getValue().toString();
+                    Log.i("TESTTEST", input_address);
+                }
             }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            }
-        });
-        mDatabase.child("Selected").child("번호").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                input_phonenum=dataSnapshot.getValue().toString();
-                Log.i("TEST",input_phonenum);
-            }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         });
 
+        mDatabase.child("Selected").child(uid).child("번호").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.getValue()!=null) {
+                    input_phonenum = dataSnapshot.getValue().toString();
+                    Log.i("TESTTEST", input_phonenum);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
 
         button1.setOnClickListener(new View.OnClickListener() {
@@ -87,102 +92,39 @@ public class home extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 final Intent intent3=new Intent(getApplicationContext(), start.class);
-                new AlertDialog.Builder(home.this)
-                        .setTitle("목적지, 연락처 확인")
-                        .setMessage(input_address+"\n"+input_phonenum+"가 맞습니까?")
-                        .setPositiveButton("확인", new DialogInterface.OnClickListener(){
-                            @Override
-                            public void onClick(DialogInterface dialog, int which){
-                                startActivity(intent3);
-                                //intent3 =new Intent(getApplicationContext(), start.class);
-                            }
-                        })
-                        .setNegativeButton("설정 다시하기", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                dialogInterface.cancel();
 
-                            }
-                        })
-                        .show();
-                //startActivity(intent3);
-                //Intent intent3=new Intent(getApplicationContext(), start.class);
-
-
-      /*          if(input_address==null){
-                    if(input_phonenum==null){
-                        //둘 다 즐겨찾기에서 선택했는지
-                        if(bm_des==null && bm_num==null){
-                            new AlertDialog.Builder(home.this)
-                            .setTitle("잠깐!")
-                            .setMessage("목적지와 사전 연락처를 설정해 주세요")
-                            .setNeutralButton("확인", new DialogInterface.OnClickListener() {
+                if(input_address!=null && input_address!=null) {
+                    new AlertDialog.Builder(home.this)
+                            .setTitle("목적지, 연락처 확인")
+                            .setMessage(input_address + "\n" + input_phonenum + " 가 맞습니까?")
+                            .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    startActivity(intent3);
+                                }
+                            })
+                            .setNegativeButton("다시 설정하기", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
+                                    dialogInterface.cancel();
 
                                 }
                             })
-                                    .show();
-                        }
-                        else if(bm_des==null){
-                            new AlertDialog.Builder(home.this)
-                                    .setTitle("잠깐!")
-                                    .setMessage("목적지를 설정해 주세요")
-                                    .setNeutralButton("확인", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialogInterface, int i) {
+                            .show();
 
-                                        }
-                                    })
-                                    .show();
-                        }
-                        else{
-                            new AlertDialog.Builder(home.this)
-                                    .setTitle("잠깐!")
-                                    .setMessage("사전 연락처를 설정해 주세요")
-                                    .setNeutralButton("확인", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialogInterface, int i) {
-
-                                        }
-                                    })
-                                    .show();
-                        }
-                    }
-                    else {
-                        //주소 즐겨찾기에서 선택했는지
-                        if(bm_des==null){
-                            new AlertDialog.Builder(home.this)
-                                    .setTitle("잠깐!")
-                                    .setMessage("목적지를 설정해 주세요")
-                                    .setNeutralButton("확인", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialogInterface, int i) {
-
-                                        }
-                                    })
-                                    .show();
-                        }
-                        else startActivity(intent3);
-                    }
                 }
                 else{
-                    if(input_phonenum!=null) startActivity(intent3);
-                    else if(bm_num==null){
-                        new AlertDialog.Builder(home.this)
-                                .setTitle("잠깐!")
-                                .setMessage("사전 연락처를 설정해 주세요")
-                                .setNeutralButton("확인", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialogInterface, int i) {
-
-                                    }
-                                })
-                                .show();
-                    }
-                    else startActivity(intent3);
-                } */
-                //startActivity(intent3);
+                    new AlertDialog.Builder(home.this)
+                            .setTitle("잠깐!")
+                            .setMessage("목적지 혹은 연락처가 설정되지 않았습니다.")
+                            .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    dialogInterface.cancel();
+                                }
+                            })
+                            .show();
+                }
             }
         });
     }
@@ -200,4 +142,5 @@ public class home extends AppCompatActivity {
         }
         return true;
     }
+
 }
