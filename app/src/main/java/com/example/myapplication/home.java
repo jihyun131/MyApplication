@@ -14,9 +14,9 @@ import android.widget.Button;
 
 public class home extends AppCompatActivity {
 
-    String input_address;
-    String input_phonenum;
-    String input_numname;
+    //String input_address;
+    //String input_phonenum;
+    //String input_numname;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,9 +31,9 @@ public class home extends AppCompatActivity {
         Button button2=(Button)findViewById(R.id.btn_config_num);
         Button button3=(Button)findViewById(R.id.btn_start);
 
-        input_address = getIntent().getStringExtra("input_address");
-        input_phonenum = getIntent().getStringExtra("input_phonenum");
-        input_numname = getIntent().getStringExtra("input_numnamme");
+        //input_address = getIntent().getStringExtra("input_address");
+        //input_phonenum = getIntent().getStringExtra("input_phonenum");
+        //input_numname = getIntent().getStringExtra("input_numnamme");
 
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,9 +53,9 @@ public class home extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent3=new Intent(getApplicationContext(), start.class);
-                intent3.putExtra("input_address",input_address);
-                intent3.putExtra("input_phonenum",input_phonenum);
-                intent3.putExtra("input_numname",input_numname);
+                //intent3.putExtra("input_address",input_address);
+                //intent3.putExtra("input_phonenum",input_phonenum);
+                //intent3.putExtra("input_numname",input_numname);
                 /*
                 if(input_address==null){
                     if(input_phonenum==null){
