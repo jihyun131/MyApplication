@@ -37,17 +37,14 @@ import static java.lang.StrictMath.abs;
 
 public class start extends AppCompatActivity {
     private FirebaseDatabase mDatabase;
+
     String data_address;
-    String data_num;
 
     String[] permission_list = {
             Manifest.permission.ACCESS_COARSE_LOCATION,
             Manifest.permission.ACCESS_FINE_LOCATION
     };
 
-    //사용자가 입력한 주소, 번호, 이름 다른 액티비티에서 받아오기
-    //String input_address = getIntent().getStringExtra("input_address");
-    String input_address="경기 화성시 우정읍 3.1만세로 1";
     Double goal_latitude;
     Double goal_longitude;
 
@@ -65,39 +62,15 @@ public class start extends AppCompatActivity {
         ab.setDisplayShowHomeEnabled(true);
 
 
-        //데이터베이스에서 주소, 전화번호 읽어오기
-        DatabaseReference mDatabase;
-        mDatabase= FirebaseDatabase.getInstance().getReference();
-        mDatabase.child("Selected").child(nowuser).child("주소").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                data_address=dataSnapshot.getValue().toString();
-                Log.i("TEST",data_address);
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+        data_address = getIntent().getStringExtra("input_address");
 
-            }
-        });
-        mDatabase.child("Selected").child(nowuser).child("번호").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                data_num=dataSnapshot.getValue().toString();
-                Log.i("TEST",data_num);
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-
-
-
+        Location input_loc=findGeoPoint(this,data_address);
         checkPermission();
-        Point pointFromGeoCoder = getPointFromGeoCoder(this, input_address);
-        goal_latitude=pointFromGeoCoder.x;
-        goal_longitude=pointFromGeoCoder.y;
+        //Point pointFromGeoCoder = getPointFromGeoCoder(this, data_address);
+
+
+        goal_latitude=input_loc.getLatitude();
+        goal_longitude=input_loc.getLongitude();
 
         final LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
         final LocationListener locationListener = new LocationListener() {
@@ -144,9 +117,6 @@ public class start extends AppCompatActivity {
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                double goal_latitude=37.421998333333335;
-                double goal_longitude=-122.08400000000002;
-
                 checkPermission();
                 Location nowlocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
@@ -159,7 +129,7 @@ public class start extends AppCompatActivity {
                 Log.d("test goal_latitude", String.valueOf(goal_latitude));
                 Log.d("test goal_longitude", String.valueOf(goal_longitude));
 
-                if(now_lati>=goal_latitude-2&&now_lati<=goal_latitude+2&&now_longi>=goal_longitude-10&&now_longi<=goal_longitude+10){
+                if(now_lati>=goal_latitude-0.002&&now_lati<=goal_latitude+0.002&&now_longi>=goal_longitude-0.002&&now_longi<=goal_longitude+0.002){
                     Intent intent1 = new Intent(getApplicationContext(), arriving_complete.class);
                     startActivity(intent1);
                     locationManager.removeUpdates(locationListener);
@@ -174,30 +144,30 @@ public class start extends AppCompatActivity {
         });
     }
 
-    private Point getPointFromGeoCoder(Context context,String input_address) {
-        Point point = new Point();
-        point.addr = input_address;
-
-        Geocoder geocoder = new Geocoder(context);
-        List<Address> listAddress;
-        try {
-            listAddress = geocoder.getFromLocationName(input_address, 1);
-        } catch (IOException e) {
-            e.printStackTrace();
-            point.havePoint = false;
-            return point;
-        }
-
-        if (listAddress.isEmpty()) {
-            point.havePoint = false;
-            return point;
-        }
-
-        point.havePoint = true;
-        point.x = listAddress.get(0).getLongitude();
-        point.y = listAddress.get(0).getLatitude();
-        return point;
-    }
+//    private Point getPointFromGeoCoder(Context context,String data_address) {
+//        Point point = new Point();
+//        point.addr = data_address;
+//
+//        Geocoder geocoder = new Geocoder(context);
+//        List<Address> listAddress;
+//        try {
+//            listAddress = geocoder.getFromLocationName(data_address, 1);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//            point.havePoint = false;
+//            return point;
+//        }
+//
+//        if (listAddress.isEmpty()) {
+//            point.havePoint = false;
+//            return point;
+//        }
+//
+//        point.havePoint = true;
+//        point.x = listAddress.get(0).getLongitude();
+//        point.y = listAddress.get(0).getLatitude();
+//        return point;
+//    }
 
 
     private void checkPermission() {
@@ -250,9 +220,6 @@ public class start extends AppCompatActivity {
         }
         return loc;
     }
-
-
-
 
     class Point {
         // 위도
