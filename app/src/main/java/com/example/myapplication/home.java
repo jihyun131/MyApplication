@@ -27,9 +27,10 @@ public class home extends AppCompatActivity {
 
     String input_address;
     String input_phonenum;
+    String namename;
 
     final FirebaseDatabase database=FirebaseDatabase.getInstance();
-    DatabaseReference ref=database.getReference("Users");
+    DatabaseReference ref=database.getReference();
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     final String uid = mAuth.getCurrentUser().getUid();
     //final String name = mAuth.getCurrentUser().getDisplayName();
@@ -56,11 +57,29 @@ public class home extends AppCompatActivity {
         Button button3=(Button)findViewById(R.id.btn_start);
 
 
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        final String testUser = mAuth.getCurrentUser().getUid();
+        DatabaseReference mDatabase;
+        mDatabase= FirebaseDatabase.getInstance().getReference();
+//        mDatabase.child("Users").child(testUser).child("name").addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                namename=dataSnapshot.toString();
+//                Log.i("TEST",namename);
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//            }
+//        });
+
+
         username.setText(name+"님");
         Log.i(":::::::::::::::;", String.valueOf(name));
 
-        final DatabaseReference mDatabase;
-        mDatabase= FirebaseDatabase.getInstance().getReference();
+        //final DatabaseReference mDatabase;
+        //mDatabase= FirebaseDatabase.getInstance().getReference();
         mDatabase.child("Selected").child(uid).child("주소").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -117,6 +136,8 @@ public class home extends AppCompatActivity {
                             .setPositiveButton("확인", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
+                                    intent3.putExtra("input_address", input_address);
+                                    intent3.putExtra("input_phonenum", input_phonenum);
                                     startActivity(intent3);
                                 }
                             })
@@ -143,6 +164,8 @@ public class home extends AppCompatActivity {
                             .show();
                 }
             }
+
+
         });
     }
 

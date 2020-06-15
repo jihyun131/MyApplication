@@ -34,6 +34,7 @@ public class start extends AppCompatActivity {
     String data_address;
     String data_num;
 
+
     String[] permission_list = {
             Manifest.permission.ACCESS_COARSE_LOCATION,
             Manifest.permission.ACCESS_FINE_LOCATION
@@ -52,32 +53,35 @@ public class start extends AppCompatActivity {
         ab.setDisplayUseLogoEnabled(true);
         ab.setDisplayShowHomeEnabled(true);
 
+        data_address = getIntent().getStringExtra("input_address");
+        data_num = getIntent().getStringExtra("input_phonenum");
 
-        //데이터베이스에서 주소, 전화번호 읽어오기
-        DatabaseReference mDatabase;
-        mDatabase= FirebaseDatabase.getInstance().getReference();
-        mDatabase.child("Selected").child(nowuser).child("주소").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                data_address=dataSnapshot.getValue().toString();
-                Log.i("TEST",data_address);
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            }
-        });
-        mDatabase.child("Selected").child(nowuser).child("번호").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                data_num=dataSnapshot.getValue().toString();
-                Log.i("TEST",data_num);
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
+//        //데이터베이스에서 주소, 전화번호 읽어오기
+//        DatabaseReference mDatabase;
+//        mDatabase= FirebaseDatabase.getInstance().getReference();
+//        mDatabase.child("Selected").child(nowuser).child("주소").addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                data_address=dataSnapshot.getValue().toString();
+//                Log.i("TEST",data_address);
+//            }
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//            }
+//        });
+//        mDatabase.child("Selected").child(nowuser).child("번호").addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                data_num=dataSnapshot.getValue().toString();
+//                Log.i("TEST",data_num);
+//            }
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//            }
+//        });
 
 
 
