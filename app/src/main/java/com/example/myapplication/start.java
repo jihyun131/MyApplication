@@ -133,7 +133,6 @@ public class start extends AppCompatActivity {
                     Intent intent1 = new Intent(getApplicationContext(), arriving_complete.class);
                     startActivity(intent1);
                     locationManager.removeUpdates(locationListener);
-//
                 }
                 else{
                     Toast.makeText(getApplicationContext(),"현 위치와 목적지로 설정한 위치가 다릅니다.",Toast.LENGTH_LONG).show();
@@ -143,32 +142,6 @@ public class start extends AppCompatActivity {
             }
         });
     }
-
-//    private Point getPointFromGeoCoder(Context context,String data_address) {
-//        Point point = new Point();
-//        point.addr = data_address;
-//
-//        Geocoder geocoder = new Geocoder(context);
-//        List<Address> listAddress;
-//        try {
-//            listAddress = geocoder.getFromLocationName(data_address, 1);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//            point.havePoint = false;
-//            return point;
-//        }
-//
-//        if (listAddress.isEmpty()) {
-//            point.havePoint = false;
-//            return point;
-//        }
-//
-//        point.havePoint = true;
-//        point.x = listAddress.get(0).getLongitude();
-//        point.y = listAddress.get(0).getLatitude();
-//        return point;
-//    }
-
 
     private void checkPermission() {
         if(Build.VERSION.SDK_INT<Build.VERSION_CODES.M)
