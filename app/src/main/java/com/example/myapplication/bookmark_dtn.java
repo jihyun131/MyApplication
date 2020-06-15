@@ -26,6 +26,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -53,7 +54,6 @@ public class bookmark_dtn extends AppCompatActivity {
 
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         uid = mAuth.getCurrentUser().getUid();
-
         initDatabase();
 
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line,new ArrayList<String>());
@@ -67,9 +67,11 @@ public class bookmark_dtn extends AppCompatActivity {
                 adapter.clear();
 
                 for (DataSnapshot dbmData : dataSnapshot.getChildren()){
-                    dbmdata2 = dbmData.getValue().toString();
-                    Array.add(dbmdata2);
-                    adapter.add(dbmdata2);
+                    for (DataSnapshot dbmdata2 : dbmData.getChildren()) {
+                        String dbmdata3 = dbmdata2.getValue().toString();
+                        Array.add(dbmdata3);
+                        adapter.add(dbmdata3);
+                    }
                 }
                 adapter.notifyDataSetChanged();
                 listView.setSelection(adapter.getCount()-1);
@@ -81,18 +83,6 @@ public class bookmark_dtn extends AppCompatActivity {
 
             }
         });
-/*
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //어디로 보낼지 정하기 현재:home
-                Object dbmdes = Array.get(position).getClass().getName();
-                Intent go = new Intent(getApplicationContext(), home.class);
-                go.putExtra("bmdes",)
-                go.putExtra("bmdes", getDatabasePath(dbmdes));
-            }
-        });
-*/
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -132,11 +122,11 @@ public class bookmark_dtn extends AppCompatActivity {
         });
     }
     private void initDatabase(){
-        /*
+
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser user = firebaseAuth.getCurrentUser();
         String uid = user.getUid();
-        */
+
         mDatabase =FirebaseDatabase.getInstance();
         mReference=mDatabase.getReference("DesBookmark").child(uid);
         //mReference.child("log").setValue("check");
