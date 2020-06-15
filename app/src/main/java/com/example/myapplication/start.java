@@ -2,13 +2,13 @@ package com.example.myapplication;
 
 import com.example.myapplication.firebase.gpsSaver;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -24,16 +24,24 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import java.security.cert.TrustAnchor;
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
+
+import static java.lang.StrictMath.abs;
 
 public class start extends AppCompatActivity {
-    //String input_address;   //사용자가 입력한 주소
-    //String input_phonenum;   //폰번호
-    //String input_numname;   //폰번호 이름
+
     String[] permission_list = {
             Manifest.permission.ACCESS_COARSE_LOCATION,
             Manifest.permission.ACCESS_FINE_LOCATION
     };
+
+    //사용자가 입력한 주소, 번호, 이름 다른 액티비티에서 받아오기
+    //String input_address = getIntent().getStringExtra("input_address");
+    String input_address="경기 화성시 우정읍 3.1만세로 1";
+    Double goal_latitude;
+    Double goal_longitude;
 
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     final String nowuser = mAuth.getCurrentUser().getUid();
@@ -48,14 +56,11 @@ public class start extends AppCompatActivity {
         ab.setDisplayUseLogoEnabled(true);
         ab.setDisplayShowHomeEnabled(true);
 
-
-        //사용자가 입력한 주소, 번호, 이름 다른 액티비티에서 받아오기
-        //input_address = getIntent().getStringExtra("input_address");
-        //input_phonenum = getIntent().getStringExtra("input_phonenum");
-        //input_numname = getIntent().getStringExtra("input_numname");
-
-
         checkPermission();
+        Point pointFromGeoCoder = getPointFromGeoCoder(this, input_address);
+        goal_latitude=pointFromGeoCoder.x;
+        goal_longitude=pointFromGeoCoder.y;
+
         final LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
         final LocationListener locationListener = new LocationListener() {
             @Override
@@ -99,26 +104,27 @@ public class start extends AppCompatActivity {
         Button button1 = (Button) findViewById(R.id.btn_arriving);
 
         button1.setOnClickListener(new View.OnClickListener() {
+
+
             @Override
             public void onClick(View view) {
-                double goal_latitude=37.421998333333335;
-                double goal_longitude=-122.08400000000002;
 
                 checkPermission();
                 Location nowlocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
-                Log.d("nowlocation", String.valueOf(nowlocation.getLatitude()));
-                Log.d("nowlocation", String.valueOf(nowlocation.getLongitude()));
-
-
-                double now_longi=nowlocation.getLongitude();
+                double now_longi=abs(nowlocation.getLongitude());
                 double now_lati=nowlocation.getLatitude();
 
-                if(now_lati>=goal_latitude-0.001&&now_lati<=goal_latitude+0.001&&now_longi>=goal_longitude-0.001&&now_longi<=goal_longitude+0.001){
+                Log.d("test nowloc lati", String.valueOf(now_lati));
+                Log.d("test nowloc longi", String.valueOf(now_longi));
+
+                Log.d("test goal_latitude", String.valueOf(goal_latitude));
+                Log.d("test goal_longitude", String.valueOf(goal_longitude));
+
+                if(now_lati>=goal_latitude-2&&now_lati<=goal_latitude+2&&now_longi>=goal_longitude-10&&now_longi<=goal_longitude+10){
                     Intent intent1 = new Intent(getApplicationContext(), arriving_complete.class);
                     startActivity(intent1);
                     locationManager.removeUpdates(locationListener);
-//
                 }
                 else{
                     Toast.makeText(getApplicationContext(),"현 위치와 목적지로 설정한 위치가 다릅니다.",Toast.LENGTH_LONG).show();
@@ -126,8 +132,35 @@ public class start extends AppCompatActivity {
 
 
             }
+
         });
     }
+
+    private Point getPointFromGeoCoder(Context context,String input_address) {
+        Point point = new Point();
+        point.addr = input_address;
+
+        Geocoder geocoder = new Geocoder(context);
+        List<Address> listAddress;
+        try {
+            listAddress = geocoder.getFromLocationName(input_address, 1);
+        } catch (IOException e) {
+            e.printStackTrace();
+            point.havePoint = false;
+            return point;
+        }
+
+        if (listAddress.isEmpty()) {
+            point.havePoint = false;
+            return point;
+        }
+
+        point.havePoint = true;
+        point.x = listAddress.get(0).getLongitude();
+        point.y = listAddress.get(0).getLatitude();
+        return point;
+    }
+
 
     private void checkPermission() {
         if(Build.VERSION.SDK_INT<Build.VERSION_CODES.M)
@@ -154,6 +187,55 @@ public class start extends AppCompatActivity {
                     finish();
                 }
             }
+        }
+    }
+    public static Location findGeoPoint(Context mcontext, String address) {
+        Location loc = new Location("");
+        Geocoder coder = new Geocoder(mcontext,Locale.KOREA);
+
+        List<Address> addr = null;// 한좌표에 대해 두개이상의 이름이 존재할수있기에 주소배열을 리턴받기 위해 설정
+
+        try {
+            addr = coder.getFromLocationName(address, 5);
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }// 몇개 까지의 주소를 원하는지 지정 1~5개 정도가 적당
+        if (addr != null) {
+            for (int i = 0; i < addr.size(); i++) {
+                Address lating = addr.get(i);
+                double lat = lating.getLatitude(); // 위도가져오기
+                double lon = lating.getLongitude(); // 경도가져오기
+                loc.setLatitude(lat);
+                loc.setLongitude(lon);
+            }
+        }
+        return loc;
+    }
+
+
+
+
+    class Point {
+        // 위도
+        public double x;
+        // 경도
+        public double y;
+        public String addr;
+        // 포인트를 받았는지 여부
+        public boolean havePoint;
+
+        @Override
+        public String toString() {
+            StringBuilder builder = new StringBuilder();
+            builder.append("x : ");
+            builder.append(x);
+            builder.append(" y : ");
+            builder.append(y);
+            builder.append(" addr : ");
+            builder.append(addr);
+
+            return builder.toString();
         }
     }
 

@@ -25,7 +25,7 @@ public class gpsSaver {
     public void saveGPS(String gps){
 
         String key = ref.child("GPS").child(userid).push().getKey();
-        Data data=new Data(gps);
+        Data5 data=new Data5(gps);
         Map<String,Object> gpsValue=data.toMap();
         Map<String,Object> childUpdates=new HashMap<>();
         childUpdates.put("/GPS/"+userid+'/'+time+'/'+key,gpsValue);
