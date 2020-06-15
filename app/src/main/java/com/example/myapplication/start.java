@@ -44,6 +44,8 @@ public class start extends AppCompatActivity {
             Manifest.permission.ACCESS_COARSE_LOCATION,
             Manifest.permission.ACCESS_FINE_LOCATION
     };
+    Double goal_latitude;
+    Double goal_longitude;
 
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     final String nowuser = mAuth.getCurrentUser().getUid();

@@ -1,11 +1,13 @@
 package com.example.myapplication;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.telephony.SmsManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -24,8 +26,10 @@ import com.google.firebase.database.DataSnapshot;
 public class arriving_complete extends AppCompatActivity {
     String namename;
     //String input_phonenum = getIntent().getStringExtra("input_phonenum");
-    String input_phonenum="01095972366";
+    String input_phonenum;   //="01095972366";
     String message="님이 안전하게 귀가하셨습니다.";
+    FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    final String uid = mAuth.getCurrentUser().getUid();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +45,20 @@ public class arriving_complete extends AppCompatActivity {
         final String testUser = mAuth.getCurrentUser().getUid();
         DatabaseReference mDatabase;
         mDatabase= FirebaseDatabase.getInstance().getReference();
+        mDatabase.child("Selected").child(uid).child("번호").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.getValue()!=null) {
+                    input_phonenum = dataSnapshot.getValue().toString();
+                    Log.i("TESTTEST", input_phonenum);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
         mDatabase.child("Users").child(testUser).child("name").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

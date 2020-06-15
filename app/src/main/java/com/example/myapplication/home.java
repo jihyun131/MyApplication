@@ -61,22 +61,22 @@ public class home extends AppCompatActivity {
         final String testUser = mAuth.getCurrentUser().getUid();
         DatabaseReference mDatabase;
         mDatabase= FirebaseDatabase.getInstance().getReference();
-//        mDatabase.child("Users").child(testUser).child("name").addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                namename=dataSnapshot.toString();
-//                Log.i("TEST",namename);
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//            }
-//        });
+        mDatabase.child("Users").child(testUser).child("name").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                namename=dataSnapshot.toString();
+                Log.i("TEST",namename);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
 
 
-        username.setText(name+"님");
-        Log.i(":::::::::::::::;", String.valueOf(name));
+        username.setText(namename+"님");
+        //Log.i(":::::::::::::::;", String.valueOf(name));
 
         //final DatabaseReference mDatabase;
         //mDatabase= FirebaseDatabase.getInstance().getReference();
