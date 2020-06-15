@@ -24,7 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class home extends AppCompatActivity {
-
+    String name;
     String input_address;
     String input_phonenum;
 
@@ -34,7 +34,7 @@ public class home extends AppCompatActivity {
     final String uid = mAuth.getCurrentUser().getUid();
     //final String name = mAuth.getCurrentUser().getDisplayName();
     //FirebaseUser user = mAuth.getInstance().getCurrentUser();
-    String name = ref.getKey();
+    //String name = ref.getKey();
     //user name 받아오기****************************************
 
     //name = user.dis
