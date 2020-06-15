@@ -36,6 +36,7 @@ public class setting extends AppCompatActivity {
 
         Button button1=(Button)findViewById(R.id.btn_bm_dtn);
         Button button2=(Button)findViewById(R.id.btn_bm_num);
+        Button button3=(Button)findViewById(R.id.go_to_home);
         Switch sw_permission = (Switch)findViewById(R.id.sw_permission);
 
         button1.setOnClickListener(new View.OnClickListener() {
@@ -50,6 +51,13 @@ public class setting extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent2=new Intent(getApplicationContext(), bookmark_num.class);
                 startActivity(intent2);
+            }
+        });
+        button3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent3=new Intent(getApplicationContext(), home.class);
+                startActivity(intent3);
             }
         });
         sw_permission.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
