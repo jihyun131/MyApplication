@@ -117,6 +117,8 @@ public class home extends AppCompatActivity {
                             .setPositiveButton("확인", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
+                                    intent3.putExtra("input_address", input_address);
+                                    intent3.putExtra("input_phonenum", input_phonenum);
                                     startActivity(intent3);
                                 }
                             })
