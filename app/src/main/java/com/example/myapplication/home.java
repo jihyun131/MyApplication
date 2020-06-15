@@ -13,8 +13,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -26,8 +28,18 @@ public class home extends AppCompatActivity {
     String input_address;
     String input_phonenum;
 
+    final FirebaseDatabase database=FirebaseDatabase.getInstance();
+    DatabaseReference ref=database.getReference("Users");
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     final String uid = mAuth.getCurrentUser().getUid();
+    //final String name = mAuth.getCurrentUser().getDisplayName();
+    //FirebaseUser user = mAuth.getInstance().getCurrentUser();
+    String name = ref.getKey();
+    //user name 받아오기****************************************
+
+    //name = user.dis
+    //DatabaseReference name=ref.child("Users").child(uid).getParent();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,9 +50,14 @@ public class home extends AppCompatActivity {
         ab.setDisplayUseLogoEnabled(true) ;
         ab.setDisplayShowHomeEnabled(true) ;
 
+        TextView username = (TextView)findViewById(R.id.textView3);
         Button button1=(Button)findViewById(R.id.btn_config_dtn);
         Button button2=(Button)findViewById(R.id.btn_config_num);
         Button button3=(Button)findViewById(R.id.btn_start);
+
+
+        username.setText(name+"님");
+        Log.i(":::::::::::::::;", String.valueOf(name));
 
         final DatabaseReference mDatabase;
         mDatabase= FirebaseDatabase.getInstance().getReference();
