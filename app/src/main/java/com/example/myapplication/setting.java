@@ -44,21 +44,6 @@ public class setting extends AppCompatActivity {
             }
         });
 
-        Switch sw_permission = (Switch)findViewById(R.id.sw_permission);
-        sw_permission.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
-
-                }
-                else{
-                    //int permssionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_BACKGROUND_LOCATION);
-
-                }
-            }
-        });
-
-
     }
 
 }
