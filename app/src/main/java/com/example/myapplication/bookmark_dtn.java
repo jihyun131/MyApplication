@@ -165,6 +165,6 @@ public class bookmark_dtn extends AppCompatActivity {
     }
     public void bm_save2 (){
         dataSaver mmm = new dataSaver(uid);
-        mmm.savenum(selected_item);
+        mmm.saveaddress(selected_item);
     }
 }

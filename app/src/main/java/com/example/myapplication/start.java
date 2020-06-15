@@ -67,6 +67,7 @@ public class start extends AppCompatActivity {
 
             }
         });
+
         mDatabase.child("Selected").child(nowuser).child("번호").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
