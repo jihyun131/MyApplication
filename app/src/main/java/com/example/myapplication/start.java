@@ -2,8 +2,11 @@ package com.example.myapplication;
 
 import com.example.myapplication.firebase.gpsSaver;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import android.Manifest;
 import android.content.Context;
@@ -27,9 +30,10 @@ import android.widget.Toast;
 import java.security.cert.TrustAnchor;
 
 public class start extends AppCompatActivity {
-    String input_address;   //사용자가 입력한 주소
-    String input_phonenum;   //폰번호
-    String input_numname;   //폰번호 이름
+    private FirebaseDatabase mDatabase;
+    String data_address;
+    String data_num;
+
     String[] permission_list = {
             Manifest.permission.ACCESS_COARSE_LOCATION,
             Manifest.permission.ACCESS_FINE_LOCATION
@@ -49,10 +53,33 @@ public class start extends AppCompatActivity {
         ab.setDisplayShowHomeEnabled(true);
 
 
-        //사용자가 입력한 주소, 번호, 이름 다른 액티비티에서 받아오기
-        input_address = getIntent().getStringExtra("input_address");
-        input_phonenum = getIntent().getStringExtra("input_phonenum");
-        input_numname = getIntent().getStringExtra("input_numname");
+        //데이터베이스에서 주소, 전화번호 읽어오기
+        DatabaseReference mDatabase;
+        mDatabase= FirebaseDatabase.getInstance().getReference();
+        mDatabase.child("Selected").child("주소").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                data_address=dataSnapshot.getValue().toString();
+                Log.i("TEST",data_address);
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        mDatabase.child("Selected").child("번호").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                data_num=dataSnapshot.getValue().toString();
+                Log.i("TEST",data_num);
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
 
 
         checkPermission();

@@ -8,14 +8,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import com.example.myapplication.firebase.addressSaver;
+import com.example.myapplication.firebase.dataSaver;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class config_dtn extends AppCompatActivity {
     String data;
 
-    //FirebaseAuth mAuth = FirebaseAuth.getInstance();
-    //final String uid = mAuth.getCurrentUser().getUid();
+    FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    final String uid = mAuth.getCurrentUser().getUid();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,9 +39,9 @@ public class config_dtn extends AppCompatActivity {
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //saveadd();
+                save2();
                 Intent intent1=new Intent(getApplicationContext(), home.class);
-                intent1.putExtra("W_address",data);
+                //intent1.putExtra("input_address",data);
                 startActivity(intent1);
             }
         });
@@ -66,8 +66,8 @@ public class config_dtn extends AppCompatActivity {
 
     }
 
-    //public void saveadd (){
-    //    addressSaver sss = new addressSaver(uid);
-    //    sss.saveAddress(data);
-    //}
+    public void save2 (){
+        dataSaver sss = new dataSaver(uid);
+        sss.saveaddress(data);
+    }
 }

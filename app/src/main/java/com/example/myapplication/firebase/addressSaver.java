@@ -14,7 +14,7 @@ public class addressSaver {
     String userid;
     public addressSaver(String userid){
         this.userid=userid;
-        ref.child("Address").child(userid);
+        ref.child("selected");
         //맨 처음 시작 때 사용자 database준비
     }
 

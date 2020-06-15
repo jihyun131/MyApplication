@@ -14,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
+import com.example.myapplication.firebase.dataSaver;
 import com.example.myapplication.firebase.numbookmark;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -29,6 +30,7 @@ import java.util.List;
 
 public class bookmark_num extends AppCompatActivity {
     String uid;
+    String selected_item;
     private FirebaseAuth firebaseAuth;
     private FirebaseDatabase mDatabase;
     private DatabaseReference mReference;
@@ -79,10 +81,9 @@ public class bookmark_num extends AppCompatActivity {
                                     View view, int position, long id) {
 
                 //클릭한 아이템의 문자열을 가져옴
-                String selected_item = (String)adapterView.getItemAtPosition(position);
-                Intent go = new Intent(getApplicationContext(), home.class);
-                go.putExtra("bmnum", selected_item);
-                Log.i("태그태그태그",selected_item);
+                selected_item = (String)adapterView.getItemAtPosition(position);
+                //번호만 잘라서 가져와야함///////
+                bm_save1();
             }
         });
 
@@ -151,5 +152,9 @@ public class bookmark_num extends AppCompatActivity {
     protected  void onDestroy(){
         super.onDestroy();
         mReference.removeEventListener(mChild);
+    }
+    public void bm_save1 (){
+        dataSaver bbb = new dataSaver(uid);
+        bbb.savenum(selected_item);
     }
 }

@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -7,16 +8,26 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 public class home extends AppCompatActivity {
 
-    //String input_address;
-    //String input_phonenum;
+    String input_address;
+    String input_phonenum;
     //String input_numname;
+    String bm_des;
+    String bm_num;
+    //Intent intent3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,9 +42,32 @@ public class home extends AppCompatActivity {
         Button button2=(Button)findViewById(R.id.btn_config_num);
         Button button3=(Button)findViewById(R.id.btn_start);
 
-        //input_address = getIntent().getStringExtra("input_address");
-        //input_phonenum = getIntent().getStringExtra("input_phonenum");
-        //input_numname = getIntent().getStringExtra("input_numnamme");
+        DatabaseReference mDatabase;
+        mDatabase= FirebaseDatabase.getInstance().getReference();
+        mDatabase.child("Selected").child("주소").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                input_address=dataSnapshot.getValue().toString();
+                Log.i("TEST",input_address);
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        mDatabase.child("Selected").child("번호").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                input_phonenum=dataSnapshot.getValue().toString();
+                Log.i("TEST",input_phonenum);
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
 
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,15 +86,33 @@ public class home extends AppCompatActivity {
         button3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent3=new Intent(getApplicationContext(), start.class);
-                //intent3.putExtra("input_address",input_address);
-                //intent3.putExtra("input_phonenum",input_phonenum);
-                //intent3.putExtra("input_numname",input_numname);
-                /*
-                if(input_address==null){
+                final Intent intent3=new Intent(getApplicationContext(), start.class);
+                new AlertDialog.Builder(home.this)
+                        .setTitle("목적지, 연락처 확인")
+                        .setMessage(input_address+"\n"+input_phonenum+"가 맞습니까?")
+                        .setPositiveButton("확인", new DialogInterface.OnClickListener(){
+                            @Override
+                            public void onClick(DialogInterface dialog, int which){
+                                startActivity(intent3);
+                                //intent3 =new Intent(getApplicationContext(), start.class);
+                            }
+                        })
+                        .setNegativeButton("설정 다시하기", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.cancel();
+
+                            }
+                        })
+                        .show();
+                //startActivity(intent3);
+                //Intent intent3=new Intent(getApplicationContext(), start.class);
+
+
+      /*          if(input_address==null){
                     if(input_phonenum==null){
                         //둘 다 즐겨찾기에서 선택했는지
-                        if(bm_a==null && bm_pn==null){
+                        if(bm_des==null && bm_num==null){
                             new AlertDialog.Builder(home.this)
                             .setTitle("잠깐!")
                             .setMessage("목적지와 사전 연락처를 설정해 주세요")
@@ -72,7 +124,7 @@ public class home extends AppCompatActivity {
                             })
                                     .show();
                         }
-                        else if(bm_a==null){
+                        else if(bm_des==null){
                             new AlertDialog.Builder(home.this)
                                     .setTitle("잠깐!")
                                     .setMessage("목적지를 설정해 주세요")
@@ -99,7 +151,7 @@ public class home extends AppCompatActivity {
                     }
                     else {
                         //주소 즐겨찾기에서 선택했는지
-                        if(bm_a==null){
+                        if(bm_des==null){
                             new AlertDialog.Builder(home.this)
                                     .setTitle("잠깐!")
                                     .setMessage("목적지를 설정해 주세요")
@@ -115,7 +167,8 @@ public class home extends AppCompatActivity {
                     }
                 }
                 else{
-                    if(bm_pn==null){
+                    if(input_phonenum!=null) startActivity(intent3);
+                    else if(bm_num==null){
                         new AlertDialog.Builder(home.this)
                                 .setTitle("잠깐!")
                                 .setMessage("사전 연락처를 설정해 주세요")
@@ -129,7 +182,7 @@ public class home extends AppCompatActivity {
                     }
                     else startActivity(intent3);
                 } */
-                startActivity(intent3);
+                //startActivity(intent3);
             }
         });
     }
