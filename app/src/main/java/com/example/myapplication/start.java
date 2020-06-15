@@ -65,7 +65,7 @@ public class start extends AppCompatActivity {
 
         Location input_loc=findGeoPoint(this,data_address);
         checkPermission();
-        //Point pointFromGeoCoder = getPointFromGeoCoder(this, data_address);
+
 
 
         goal_latitude=input_loc.getLatitude();
