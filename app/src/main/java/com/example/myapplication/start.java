@@ -12,6 +12,8 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -27,13 +29,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import java.security.cert.TrustAnchor;
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
+
+import static java.lang.StrictMath.abs;
 
 public class start extends AppCompatActivity {
     private FirebaseDatabase mDatabase;
     String data_address;
     String data_num;
-
 
     String[] permission_list = {
             Manifest.permission.ACCESS_COARSE_LOCATION,
@@ -53,40 +58,17 @@ public class start extends AppCompatActivity {
         ab.setDisplayUseLogoEnabled(true);
         ab.setDisplayShowHomeEnabled(true);
 
+
         data_address = getIntent().getStringExtra("input_address");
-        data_num = getIntent().getStringExtra("input_phonenum");
 
-
-//        //데이터베이스에서 주소, 전화번호 읽어오기
-//        DatabaseReference mDatabase;
-//        mDatabase= FirebaseDatabase.getInstance().getReference();
-//        mDatabase.child("Selected").child(nowuser).child("주소").addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                data_address=dataSnapshot.getValue().toString();
-//                Log.i("TEST",data_address);
-//            }
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//            }
-//        });
-//        mDatabase.child("Selected").child(nowuser).child("번호").addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                data_num=dataSnapshot.getValue().toString();
-//                Log.i("TEST",data_num);
-//            }
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//            }
-//        });
-
-
-
-
+        Location input_loc=findGeoPoint(this,data_address);
         checkPermission();
+        //Point pointFromGeoCoder = getPointFromGeoCoder(this, data_address);
+
+
+        goal_latitude=input_loc.getLatitude();
+        goal_longitude=input_loc.getLongitude();
+
         final LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
         final LocationListener locationListener = new LocationListener() {
             @Override
@@ -132,20 +114,19 @@ public class start extends AppCompatActivity {
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                double goal_latitude=37.421998333333335;
-                double goal_longitude=-122.08400000000002;
-
                 checkPermission();
                 Location nowlocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
-                Log.d("nowlocation", String.valueOf(nowlocation.getLatitude()));
-                Log.d("nowlocation", String.valueOf(nowlocation.getLongitude()));
-
-
-                double now_longi=nowlocation.getLongitude();
+                double now_longi=abs(nowlocation.getLongitude());
                 double now_lati=nowlocation.getLatitude();
 
-                if(now_lati>=goal_latitude-0.001&&now_lati<=goal_latitude+0.001&&now_longi>=goal_longitude-0.001&&now_longi<=goal_longitude+0.001){
+                Log.d("test nowloc lati", String.valueOf(now_lati));
+                Log.d("test nowloc longi", String.valueOf(now_longi));
+
+                Log.d("test goal_latitude", String.valueOf(goal_latitude));
+                Log.d("test goal_longitude", String.valueOf(goal_longitude));
+
+                if(now_lati>=goal_latitude-0.002&&now_lati<=goal_latitude+0.002&&now_longi>=goal_longitude-0.002&&now_longi<=goal_longitude+0.002){
                     Intent intent1 = new Intent(getApplicationContext(), arriving_complete.class);
                     startActivity(intent1);
                     locationManager.removeUpdates(locationListener);
@@ -159,6 +140,32 @@ public class start extends AppCompatActivity {
             }
         });
     }
+
+//    private Point getPointFromGeoCoder(Context context,String data_address) {
+//        Point point = new Point();
+//        point.addr = data_address;
+//
+//        Geocoder geocoder = new Geocoder(context);
+//        List<Address> listAddress;
+//        try {
+//            listAddress = geocoder.getFromLocationName(data_address, 1);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//            point.havePoint = false;
+//            return point;
+//        }
+//
+//        if (listAddress.isEmpty()) {
+//            point.havePoint = false;
+//            return point;
+//        }
+//
+//        point.havePoint = true;
+//        point.x = listAddress.get(0).getLongitude();
+//        point.y = listAddress.get(0).getLatitude();
+//        return point;
+//    }
+
 
     private void checkPermission() {
         if(Build.VERSION.SDK_INT<Build.VERSION_CODES.M)
@@ -185,6 +192,52 @@ public class start extends AppCompatActivity {
                     finish();
                 }
             }
+        }
+    }
+    public static Location findGeoPoint(Context mcontext, String address) {
+        Location loc = new Location("");
+        Geocoder coder = new Geocoder(mcontext,Locale.KOREA);
+
+        List<Address> addr = null;// 한좌표에 대해 두개이상의 이름이 존재할수있기에 주소배열을 리턴받기 위해 설정
+
+        try {
+            addr = coder.getFromLocationName(address, 5);
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }// 몇개 까지의 주소를 원하는지 지정 1~5개 정도가 적당
+        if (addr != null) {
+            for (int i = 0; i < addr.size(); i++) {
+                Address lating = addr.get(i);
+                double lat = lating.getLatitude(); // 위도가져오기
+                double lon = lating.getLongitude(); // 경도가져오기
+                loc.setLatitude(lat);
+                loc.setLongitude(lon);
+            }
+        }
+        return loc;
+    }
+
+    class Point {
+        // 위도
+        public double x;
+        // 경도
+        public double y;
+        public String addr;
+        // 포인트를 받았는지 여부
+        public boolean havePoint;
+
+        @Override
+        public String toString() {
+            StringBuilder builder = new StringBuilder();
+            builder.append("x : ");
+            builder.append(x);
+            builder.append(" y : ");
+            builder.append(y);
+            builder.append(" addr : ");
+            builder.append(addr);
+
+            return builder.toString();
         }
     }
 

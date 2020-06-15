@@ -103,7 +103,7 @@ public class signup extends AppCompatActivity {
 
                                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                                 DatabaseReference reference = database.getReference("Users");
-                                reference.child(name).setValue(hashMap);
+                                reference.child(uid).setValue(hashMap);
 
 
                                 //가입이 이루어졌을시 가입 화면을 빠져나감.
