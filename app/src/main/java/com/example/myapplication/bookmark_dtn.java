@@ -14,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
+import com.example.myapplication.firebase.dataSaver;
 import com.example.myapplication.firebase.desbookmark;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -25,12 +26,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 
 public class bookmark_dtn extends AppCompatActivity {
     String uid;
     String dbmdata2;
+    String selected_item;
     private FirebaseAuth firebaseAuth;
     private FirebaseDatabase mDatabase;
     private DatabaseReference mReference;
@@ -51,7 +54,6 @@ public class bookmark_dtn extends AppCompatActivity {
 
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         uid = mAuth.getCurrentUser().getUid();
-
         initDatabase();
 
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line,new ArrayList<String>());
@@ -65,21 +67,15 @@ public class bookmark_dtn extends AppCompatActivity {
                 adapter.clear();
 
                 for (DataSnapshot dbmData : dataSnapshot.getChildren()){
-                    dbmdata2 = dbmData.getValue().toString();
-                    Array.add(dbmdata2);
-                    adapter.add(dbmdata2);
+                    for (DataSnapshot dbmdata2 : dbmData.getChildren()) {
+                        String dbmdata3 = dbmdata2.getValue().toString();
+                        Array.add(dbmdata3);
+                        adapter.add(dbmdata3);
+                    }
                 }
                 adapter.notifyDataSetChanged();
                 listView.setSelection(adapter.getCount()-1);
 
-                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        //어디로 보낼지 정하기 현재:home
-                        Intent go = new Intent(getApplicationContext(), home.class);
-                        //go.putExtra("bmdes", Array.get(position).);
-                    }
-                });
             }
 
             @Override
@@ -87,6 +83,19 @@ public class bookmark_dtn extends AppCompatActivity {
 
             }
         });
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> adapterView,
+                                    View view, int position, long id) {
+
+                //클릭한 아이템의 문자열을 가져옴
+                selected_item = (String)adapterView.getItemAtPosition(position);
+                bm_save2();
+            }
+        });
+
 
         ActionBar ab = getSupportActionBar() ;
         ab.setIcon(R.drawable.pocketpolice_icon) ;
@@ -113,11 +122,11 @@ public class bookmark_dtn extends AppCompatActivity {
         });
     }
     private void initDatabase(){
-        /*
+
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser user = firebaseAuth.getCurrentUser();
         String uid = user.getUid();
-        */
+
         mDatabase =FirebaseDatabase.getInstance();
         mReference=mDatabase.getReference("DesBookmark").child(uid);
         //mReference.child("log").setValue("check");
@@ -153,5 +162,9 @@ public class bookmark_dtn extends AppCompatActivity {
     protected  void onDestroy(){
         super.onDestroy();
         mReference.removeEventListener(mChild);
+    }
+    public void bm_save2 (){
+        dataSaver mmm = new dataSaver(uid);
+        mmm.savenum(selected_item);
     }
 }
