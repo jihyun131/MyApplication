@@ -16,6 +16,11 @@ import android.widget.Switch;
 
 public class setting extends AppCompatActivity {
 
+    String[] permission_list = {
+            Manifest.permission.ACCESS_COARSE_LOCATION,
+            Manifest.permission.ACCESS_FINE_LOCATION
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,7 +32,7 @@ public class setting extends AppCompatActivity {
 
         Button button1=(Button)findViewById(R.id.btn_bm_dtn);
         Button button2=(Button)findViewById(R.id.btn_bm_num);
-
+        Switch sw_permission = (Switch)findViewById(R.id.sw_permission);
 
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,6 +46,17 @@ public class setting extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent2=new Intent(getApplicationContext(), bookmark_num.class);
                 startActivity(intent2);
+            }
+        });
+        sw_permission.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+
+                }
+                else {
+
+                }
             }
         });
 
