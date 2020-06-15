@@ -33,14 +33,6 @@ public class home extends AppCompatActivity {
     DatabaseReference ref=database.getReference();
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     final String uid = mAuth.getCurrentUser().getUid();
-    //final String name = mAuth.getCurrentUser().getDisplayName();
-    //FirebaseUser user = mAuth.getInstance().getCurrentUser();
-    String name = ref.getKey();
-    //user name 받아오기****************************************
-
-    //name = user.dis
-    //DatabaseReference name=ref.child("Users").child(uid).getParent();
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,21 +43,20 @@ public class home extends AppCompatActivity {
         ab.setDisplayUseLogoEnabled(true) ;
         ab.setDisplayShowHomeEnabled(true) ;
 
-        TextView username = (TextView)findViewById(R.id.textView3);
+        final TextView username = (TextView)findViewById(R.id.textView3);
         Button button1=(Button)findViewById(R.id.btn_config_dtn);
         Button button2=(Button)findViewById(R.id.btn_config_num);
         Button button3=(Button)findViewById(R.id.btn_start);
 
 
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        final String testUser = mAuth.getCurrentUser().getUid();
         DatabaseReference mDatabase;
         mDatabase= FirebaseDatabase.getInstance().getReference();
-        mDatabase.child("Users").child(testUser).child("name").addListenerForSingleValueEvent(new ValueEventListener() {
+        mDatabase.child("Users").child(uid).child("name").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                namename=dataSnapshot.toString();
+                namename= (String) dataSnapshot.getValue();
                 Log.i("TEST",namename);
+                username.setText(namename+"님");
 
             }
 
@@ -75,11 +66,6 @@ public class home extends AppCompatActivity {
         });
 
 
-        username.setText(namename+"님");
-        //Log.i(":::::::::::::::;", String.valueOf(name));
-
-        //final DatabaseReference mDatabase;
-        //mDatabase= FirebaseDatabase.getInstance().getReference();
         mDatabase.child("Selected").child(uid).child("주소").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
