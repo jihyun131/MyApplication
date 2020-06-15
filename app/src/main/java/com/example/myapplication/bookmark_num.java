@@ -157,6 +157,6 @@ public class bookmark_num extends AppCompatActivity {
     }
     public void bm_save1 (){
         dataSaver bbb = new dataSaver(uid);
-        bbb.saveaddress(selected_item);
+        bbb.savenum(selected_item);
     }
 }
