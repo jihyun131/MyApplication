@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -70,6 +71,21 @@ public class bookmark_num extends AppCompatActivity {
 
             }
         });
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> adapterView,
+                                    View view, int position, long id) {
+
+                //클릭한 아이템의 문자열을 가져옴
+                String selected_item = (String)adapterView.getItemAtPosition(position);
+                Intent go = new Intent(getApplicationContext(), home.class);
+                go.putExtra("bmnum", selected_item);
+                Log.i("태그태그태그",selected_item);
+            }
+        });
+
         ActionBar ab = getSupportActionBar() ;
         ab.setIcon(R.drawable.pocketpolice_icon) ;
         ab.setDisplayUseLogoEnabled(true) ;
@@ -98,13 +114,11 @@ public class bookmark_num extends AppCompatActivity {
 
         mDatabase =FirebaseDatabase.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
-        // 추가
+
         FirebaseUser user = firebaseAuth.getCurrentUser();
         String uid = user.getUid();
 
         mReference=mDatabase.getReference("NumBookMark").child(uid);
-        //mReference.child(usrid);
-        //mReference.child("log").setValue("check");
         mChild = new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {

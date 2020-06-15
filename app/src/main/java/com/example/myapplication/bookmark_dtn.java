@@ -72,14 +72,6 @@ public class bookmark_dtn extends AppCompatActivity {
                 adapter.notifyDataSetChanged();
                 listView.setSelection(adapter.getCount()-1);
 
-                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        //어디로 보낼지 정하기 현재:home
-                        Intent go = new Intent(getApplicationContext(), home.class);
-                        //go.putExtra("bmdes", Array.get(position).);
-                    }
-                });
             }
 
             @Override
@@ -87,6 +79,33 @@ public class bookmark_dtn extends AppCompatActivity {
 
             }
         });
+/*
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //어디로 보낼지 정하기 현재:home
+                Object dbmdes = Array.get(position).getClass().getName();
+                Intent go = new Intent(getApplicationContext(), home.class);
+                go.putExtra("bmdes",)
+                go.putExtra("bmdes", getDatabasePath(dbmdes));
+            }
+        });
+*/
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> adapterView,
+                                    View view, int position, long id) {
+
+                //클릭한 아이템의 문자열을 가져옴
+                String selected_item = (String)adapterView.getItemAtPosition(position);
+                Intent go = new Intent(getApplicationContext(), home.class);
+                go.putExtra("bmdes", selected_item);
+                Log.i("태그태그태그",selected_item);
+            }
+        });
+
 
         ActionBar ab = getSupportActionBar() ;
         ab.setIcon(R.drawable.pocketpolice_icon) ;
