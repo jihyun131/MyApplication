@@ -60,10 +60,12 @@ public class bookmark_num extends AppCompatActivity {
                 String myKey = dataSnapshot.getKey();
                 adapter.clear();
 
-                for (DataSnapshot dbmData : dataSnapshot.getChildren()){
-                    String dbmdata2 = dbmData.getValue().toString();
-                    Array.add(dbmdata2);
-                    adapter.add(dbmdata2);
+                for (DataSnapshot nbmData : dataSnapshot.getChildren()){
+                    for (DataSnapshot nbmdata2 : nbmData.getChildren()) {
+                        String nbmdata3 = nbmdata2.getValue().toString();
+                        Array.add(nbmdata3);
+                        adapter.add(nbmdata3);
+                    }
                 }
                 adapter.notifyDataSetChanged();
                 listView.setSelection(adapter.getCount()-1);
