@@ -37,14 +37,13 @@ import static java.lang.StrictMath.abs;
 
 public class start extends AppCompatActivity {
     private FirebaseDatabase mDatabase;
-
     String data_address;
+    String data_num;
 
     String[] permission_list = {
             Manifest.permission.ACCESS_COARSE_LOCATION,
             Manifest.permission.ACCESS_FINE_LOCATION
     };
-
     Double goal_latitude;
     Double goal_longitude;
 
@@ -66,7 +65,7 @@ public class start extends AppCompatActivity {
 
         Location input_loc=findGeoPoint(this,data_address);
         checkPermission();
-        //Point pointFromGeoCoder = getPointFromGeoCoder(this, data_address);
+
 
 
         goal_latitude=input_loc.getLatitude();
