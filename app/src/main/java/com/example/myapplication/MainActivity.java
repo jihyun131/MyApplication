@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
                 String email = mEmailText.getText().toString().trim();
                 String pwd = mPasswordText.getText().toString().trim();
                 if (email.isEmpty() || pwd.isEmpty()) {
-                    Toast.makeText(MainActivity.this, "FilltheBlanks", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Fill the blanks", Toast.LENGTH_SHORT).show();
                 } else {
                     firebaseAuth.signInWithEmailAndPassword(email, pwd)
                             .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
