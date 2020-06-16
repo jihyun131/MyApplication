@@ -24,11 +24,9 @@ public class numbookmark {
     public numbookmark(String uid){
         this.user=nowuser;
         ref.child("NumBookmark").child(uid);
-        //맨 처음 시작 때 사용자 database준비
     }
 
     public void savenbm(String snbm_info, String snbm){
-
         String key = ref.child("NumBookmark").child(user).push().getKey();
         Data3 data3=new Data3(snbm, snbm_info);
         Map<String,Object> Value=data3.toMap();
@@ -37,6 +35,8 @@ public class numbookmark {
         ref.updateChildren(childUpdates);
     }
 };
+
+
 
 
 @IgnoreExtraProperties

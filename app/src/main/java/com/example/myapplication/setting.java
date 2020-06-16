@@ -37,7 +37,7 @@ public class setting extends AppCompatActivity {
         Button button1=(Button)findViewById(R.id.btn_bm_dtn);
         Button button2=(Button)findViewById(R.id.btn_bm_num);
         Button button3=(Button)findViewById(R.id.go_to_home);
-        Switch sw_permission = (Switch)findViewById(R.id.sw_permission);
+        //Switch sw_permission = (Switch)findViewById(R.id.sw_permission);
 
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,7 +60,9 @@ public class setting extends AppCompatActivity {
                 startActivity(intent3);
             }
         });
+        /*
         sw_permission.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
@@ -71,7 +73,7 @@ public class setting extends AppCompatActivity {
 
                 }
             }
-        });
+        });*/
 
     }
 

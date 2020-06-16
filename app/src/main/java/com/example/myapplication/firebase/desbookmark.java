@@ -20,7 +20,6 @@ public class desbookmark {
     public desbookmark(String uid){
         this.user=nowuser;
         ref.child("DesBookmark").child(uid);
-        //맨 처음 시작 때 사용자 database준비
     }
 
 

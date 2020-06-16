@@ -93,6 +93,8 @@ public class bookmark_dtn extends AppCompatActivity {
                 //클릭한 아이템의 문자열을 가져옴
                 selected_item = (String)adapterView.getItemAtPosition(position);
                 bm_save2();
+                Intent go2 = new Intent(getApplicationContext(), home.class);
+                startActivity(go2);
             }
         });
 

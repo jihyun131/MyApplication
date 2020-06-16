@@ -57,7 +57,6 @@ public class bookmark_num extends AppCompatActivity {
         mReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot){
-                String myKey = dataSnapshot.getKey();
                 adapter.clear();
 
                 for (DataSnapshot nbmData : dataSnapshot.getChildren()){
@@ -82,10 +81,11 @@ public class bookmark_num extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView,
                                     View view, int position, long id) {
 
-                //클릭한 아이템의 문자열을 가져옴
                 selected_item = (String)adapterView.getItemAtPosition(position);
-                //번호만 잘라서 가져와야함///////
+
                 bm_save1();
+                Intent go1 = new Intent(getApplicationContext(), home.class);
+                startActivity(go1);
             }
         });
 
